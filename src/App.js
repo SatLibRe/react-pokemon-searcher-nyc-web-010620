@@ -9,10 +9,7 @@ class App extends React.Component {
     filteredPokemon: [],
     search: "",
     currentPokemon: {
-      name: '',
-      hp: '',
-      frontUrl: '',
-      backUrl: ''
+      name: ""
     }
   }
 
@@ -27,32 +24,32 @@ class App extends React.Component {
     })
   }
 
-  handleSubmit = (e) => {
+  handleChange = (e) => {
+    this.setState({
+      ...this.state,
+      currentPokemon:{
+        name: e.target.value
+      }
+    })
+  }
+
+  handleSubmit = (e,pokemon) => {
     e.preventDefault()
     fetch("http://localhost:3000/pokemon", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify(this.state.currentPokemon)
+      body: JSON.stringify(pokemon)
     }).then(response => response.json())
     .then(response => {
-      let copyArr = [...this.state.pokemons, response]
       this.setState({
-        pokemons: copyArr
+        filteredPokemon: [...this.state.filteredPokemon, response]
       })
     })
   }
 
-  handleFormChange = (e) => {
-    this.setState({
-      ...this.state.pokemons,
-      currentPokemon: {
-        ...this.state.currentPokemon, 
-        [e.target.name]: e.target.value
-      }
-    })
-  }
+
 
   handleSearch = (event) => {
     this.setState({
@@ -67,7 +64,7 @@ class App extends React.Component {
   render(){
     return (
     <div className="App">
-      <PokemonPage handleSearch={this.handleSearch} handleSubmit={this.handleSubmit} pokemons={this.state.filteredPokemon} handleFormChange={this.handleFormChange}  currentPokemon={this.state.currentPokemon}/>
+      <PokemonPage handleSubmit={this.handleSubmit} handleChange={this.handleChange} handleSearch={this.handleSearch}  pokemons={this.state.filteredPokemon} currentPokemon={this.state.currentPokemon}/>
     </div>
     )
   }

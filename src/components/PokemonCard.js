@@ -19,7 +19,7 @@ class PokemonCard extends React.Component {
       <Card>
         <div>
           <div className="image" onClick={this.handlePictureChange}>
-            {/* {this.state.frontShown == true ? <img src={this.props.pokemon.sprites.front} alt="oh no!" /> : <img src={this.props.pokemon.sprites.back} alt="oh no!" />} */}
+            {/* {this.state.frontShown ? <img src={this.props.pokemon.sprites.front} alt="oh no!" /> : <img src={this.props.pokemon.sprites.back} alt="oh no!" />} */}
           </div>
           <div className="content">
           <div className="header"> {name} </div>
@@ -27,7 +27,6 @@ class PokemonCard extends React.Component {
           <div className="extra content">
             <span>
               <i className="icon heartbeat red" />
-              {/* {this.props.pokemon.stats[5].value} hp */}
             </span>
           </div>
         </div>
